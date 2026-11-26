@@ -1,5 +1,8 @@
 package dev.wadspaces;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Locale;
 
 public final class Main {
@@ -20,9 +23,10 @@ public final class Main {
             case "--help", "-h", "help" -> printHelp();
             case "--version", "-v", "version" -> System.out.println(VERSION);
             case "build" -> runBuild(args);
+            case "wii" -> printWiiFunStuff();
             default -> {
                 System.err.println("Unknown command or option: " + args[0]);
-                System.err.println("Run 'wdsp --help' for usage.");
+                System.err.println("Run '" + NAME + " --help' for usage.");
                 System.exit(1);
             }
         }
@@ -42,7 +46,7 @@ public final class Main {
                 }
                 default -> {
                     System.err.println("Unknown build option: " + args[i]);
-                    System.err.println("Run 'wdsp build --help' for usage.");
+                    System.err.println("Run '" + NAME + " build --help' for usage.");
                     System.exit(1);
                 }
             }
@@ -74,6 +78,19 @@ public final class Main {
         System.out.println("Building is not implemented yet.");
     }
 
+    private static void printWiiFunStuff() {
+        try (InputStream art = Main.class.getResourceAsStream("/funnistuff.txt")) {
+            if (art == null) {
+                System.err.println("Could not find funnistuff.txt in the application resources.");
+                return;
+            }
+
+            System.out.print(new String(art.readAllBytes(), StandardCharsets.UTF_8));
+        } catch (IOException exception) {
+            System.err.println("Could not read the Wii ASCII art: " + exception.getMessage());
+        }
+    }
+
     private static String readOptionValue(String[] args, int index, String option) {
         if (index >= args.length) {
             System.err.println("Missing value for " + option);
@@ -92,6 +109,7 @@ public final class Main {
 
                 Commands:
                   build       Build a forwarder WAD
+                  wii         Show a silly Wii ASCII-art surprise
                   help        Show this help message
                   version     Show the WadSpaces version
 
