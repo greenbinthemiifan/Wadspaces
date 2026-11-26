@@ -1,71 +1,46 @@
-# Wadspaces
+# WadSpaces
 
-Wadspaces is a Java 21 command-line tool for building Wadspaces projects.
+WadSpaces is a Java command-line project intended to make Wii WAD creation possible from GitHub Codespaces. The goal is to make the workflow easy to use in a browser-based development environment.
 
-**Version:** `0.1.0-beta`
+> **Early development:** Version `0.1.0-beta` is a work in progress. Actual WAD generation is not implemented yet. The current `build` command accepts a forwarder title and `.wad` output path, then reports that building is not implemented. It does not create or install WAD files.
 
 ## Requirements
 
-- Java 21 or newer
-- Gradle (or the Gradle wrapper, if present)
+- Java 21
+- Gradle
 
-## Build
+You can use a GitHub Codespace or another environment with Java 21 and Gradle installed.
 
-Build the project with Gradle:
+## Build and run
 
-```bash
-./gradlew build
-```
-
-If the wrapper is unavailable, use your installed Gradle version:
+Build the project:
 
 ```bash
 gradle build
 ```
 
-## Usage
-
-Run the application:
+Show the CLI help:
 
 ```bash
-./gradlew run
+gradle run --args="--help"
 ```
 
-### Command-line options
-
-```text
---help       Show command-line help
---version    Print the Wadspaces version
-```
-
-### Build a project
+Print the version:
 
 ```bash
-java -jar build/libs/Wadspaces.jar build --title "My Project" --output dist
+gradle run --args="--version"
 ```
 
-- `build` starts the build command.
-- `--title` sets the project title.
-- `--output` sets the output directory.
+## CLI
 
-## Source layout
+The planned build command currently takes a forwarder title and an output path ending in `.wad`:
 
-```text
-src/main/java/dev/wadspaces/Main.java
-build.gradle
-settings.gradle
+```bash
+gradle run --args='build --title "My Forwarder" --output my-forwarder.wad'
 ```
+
+At this stage, the command only validates the arguments and prints a status message; it does not produce a WAD.
 
 ## Development
 
-Compile and run the application:
-
-```bash
-./gradlew run
-```
-
-Run the test suite:
-
-```bash
-./gradlew test
-```
+The application entry point is `src/main/java/dev/wadspaces/Main.java`. The project uses Gradle's Kotlin DSL (`build.gradle.kts` and `settings.gradle.kts`) and targets Java 21.
