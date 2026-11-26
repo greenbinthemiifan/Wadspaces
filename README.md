@@ -2,7 +2,7 @@
 
 WadSpaces is a Java command-line project intended to make Wii forwarder WAD creation possible from GitHub Codespaces. It uses **USB Loader GX as the forwarder**. The goal is to make the workflow easy to use in a browser-based development environment.
 
-> **Early development:** Version `0.1.0-beta` is a work in progress. Actual WAD generation is not implemented yet. WadSpaces is intended to create forwarder WADs only; it is not for packaging games or other content as nested WADs. The current `build` command accepts a forwarder title and `.wad` output path, then reports that building is not implemented.
+> **Early development:** Version `0.1.0-beta` is a work in progress. Actual WAD generation is not implemented yet. WadSpaces is intended to create forwarder WADs only; it is not for packaging games or other content as nested WADs. The current `build` command accepts a forwarder title and a `.wad` output path, then reports that building is not implemented.
 
 ## Requirements
 
@@ -42,7 +42,16 @@ At this stage, the command only validates the arguments and prints a status mess
 
 ## Project configuration
 
-WadSpaces is intended to read project details from a `details.wadspaces` file so it can parse the settings needed to build a forwarder. The configuration format and supported fields are still to be defined.
+WadSpaces reads project details from a `details.wadspaces` file. Each setting is stored on one line as `key="value"`.
+
+Example:
+
+```text
+version="0.1.0-beta"
+wad name="wad name here"
+```
+
+The `version` setting specifies the WadSpaces project version, and `wad name` specifies the name of the WAD.
 
 ## Development
 
